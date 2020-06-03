@@ -170,13 +170,14 @@ Foi utilizado o conceito de classes, e orientação a objeto
 
 - http://localhost:3000/credential
 
-![Criar credencial](http://alessandrodev.com/imagens/api7.jpg "Criar credencial")
-
 ```javascript
 router.get('/credential', function (req, res) {
 res.render('index');
 });
 ```
+
+![Criar credencial](http://alessandrodev.com/imagens/api7.jpg "Criar credencial")
+
 > You'll find details about it on: public/javascripts/createCredentials.js
 > The credential needs to be in headers on request 
 
@@ -190,7 +191,7 @@ http://localhost:3000/login
 Exemplo de criptografia utilizando cryptoJS:
 
 ```javascript
-let user = { email: userName.value, password: password.value };`
+let user = { email: userName.value, password: password.value };
 let credential = CryptoJS.AES.encrypt(JSON.stringify(user), credential').toString();
 inputCredential.value = credential; ```
 
