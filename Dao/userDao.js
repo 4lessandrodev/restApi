@@ -31,7 +31,6 @@ class userDao extends genericDao{
   }
 
   static find(model) {
-    console.log(`SELECT id, Name, Email FROM ${model.tableName} WHERE Name LIKE '%${model[model.modelName].Name}%'`);
     return new Promise((resolve, reject) => {
       db.query(`SELECT id, Name, Email FROM ${model.tableName} WHERE Name LIKE '%${model[model.modelName].Name}%'`, (err, result) => {
         if (err) {
