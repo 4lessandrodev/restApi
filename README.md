@@ -186,6 +186,7 @@ res.render('index');
 http://localhost:3000/login
 
 ######  No headers passar email e senha em formato JSON criptografado em AES
+
 ` { email: userName.value, password: password.value } `
 
 Exemplo de criptografia utilizando cryptoJS:
@@ -193,16 +194,20 @@ Exemplo de criptografia utilizando cryptoJS:
 ```javascript
 let user = { email: userName.value, password: password.value };
 let credential = CryptoJS.AES.encrypt(JSON.stringify(user), credential').toString();
-inputCredential.value = credential; ```
+inputCredential.value = credential;
+```
 
 ###### Ficará assim:
 
 ```javascript
-headers:{credential:'U2FsdGVkX1/82buCFBVVnuXrxSBQMlOulgmwQ4/Xr0uHgKiF6Uhp0c9vT7r70XdpX9JaaaEImD1VQJ+eQ7EwWY+Yr7uj6yNGfotZBoGuwbI='}```
+headers:{credential:U2FsdGVkX1/82buCFBVVnuXrxSBQMlOulgmwQ4/Xr0uHgKiF6Uhp0c9vT7r70XdpX9JaaaEImD1VQJ+eQ7EwWY+Yr7uj6yNGfotZBoGuwbI=}
+```
 
 ###### Para criar uma chave utilize a pagina da rota
 
-http://localhost:3000/credential
+
+- http://localhost:3000/credential
+
 
 ##### Método de autenticação JWT
 
