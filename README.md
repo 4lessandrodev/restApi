@@ -193,7 +193,7 @@ Exemplo de criptografia utilizando cryptoJS:
 
 ```javascript
 let user = { email: userName.value, password: password.value };
-let credential = CryptoJS.AES.encrypt(JSON.stringify(user), credential').toString();
+let credential = CryptoJS.AES.encrypt(JSON.stringify(user), 'credential').toString();
 inputCredential.value = credential;
 ```
 
