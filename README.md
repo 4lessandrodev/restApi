@@ -200,7 +200,7 @@ inputCredential.value = credential;
 ###### Ficará assim:
 
 ```javascript
-headers:{credential:U2FsdGVkX1/82buCFBVVnuXrxSBQMlOulgmwQ4/Xr0uHgKiF6Uhp0c9vT7r70XdpX9JaaaEImD1VQJ+eQ7EwWY+Yr7uj6yNGfotZBoGuwbI=}
+headers:{credential: 'U2FsdGVkX1/82buCFBVVnuXrxSBQMlOulgmwQ4/Xr0uHgKiF6Uhp0c9vT7r70XdpX9JaaaEImD1VQJ+eQ7EwWY+Yr7uj6yNGfotZBoGuwbI='}
 ```
 
 ###### Para criar uma chave utilize a pagina da rota
