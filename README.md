@@ -33,16 +33,26 @@ http://localhost:3000/users/user/Aline
 ` router.get('/user/:name', userController.find); `
 
 ##### Método de autenticação JWT
+
 ```javascript
+    //VALIDAR TOKEN
+  //--------------------------------------------------------
   verifyToken: (req, res, next) => {
     try {
+      const NOW = Date.now();
       if (!req.headers.authorization) {
         res.status(401).json({ error: { message:'Token inválido'}});
       } else {
-        let token = req.headers.authorization.substring(7); //substring para tirar o "Bearer "
+        //substring para tirar o "Bearer "
+        let token = req.headers.authorization.substring(7); 
         let user = jwt.verify(token, process.env.SECRET_KEY);
         if (user.id != undefined) {
-          next();
+          //Verificar se o token expirou
+          if (NOW > user.exp * 1000) {
+            res.status(401).json({ error: { message: 'Token expirado' } });
+          } else {
+            next();
+          }
         } else {
           res.status(401).json({ error: { message: 'Token inválido' } });
         }
@@ -52,6 +62,7 @@ http://localhost:3000/users/user/Aline
     }
   }
 ```
+
 ##### Middleware utilizado em app.js
 
 ```javascript
@@ -60,6 +71,7 @@ app.use(Auth.verifyToken);
 app.use('/users', usersRouter);
 ```
 #### Para clonar o projeto
+
 1.  ` git clone https://github.com/ALESSANDROLMENEZES/restApi.git`
 2. ` npm install`
 3. configurar seu arquivo .env com as informações de seu ambiente
@@ -84,11 +96,4 @@ app.use('/users', usersRouter);
 ------------
 
 ![Token não informado](http://alessandrodev.com/imagens/api4.jpg "Token não informado")
-
-
-
-
-
-
-
 
