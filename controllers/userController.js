@@ -4,7 +4,7 @@ const Auth = require('../midleware/Auth');
 require('dotenv').config();
 
 module.exports = {
-  //LISTAR USUÁRIOS PODENDO SE COM OU SEM LIMITE 
+  //LISTAR USUÁRIOS PODENDO SER COM OU SEM LIMITE 
   //-----------------------------------
   list: async (req, res, next) => {
     try {
