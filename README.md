@@ -35,7 +35,7 @@ http://localhost:3000/users/user/Aline
 ##### Método de autenticação JWT
 
 ```javascript
-    //VALIDAR TOKEN
+  //VALIDAR TOKEN
   //--------------------------------------------------------
   verifyToken: (req, res, next) => {
     try {

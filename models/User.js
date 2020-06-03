@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 class User{
-  constructor (name, email, password) {
+  constructor (email, password, name) {
     this.tableName = 'usuarios';
     this.id = null;
     this.modelName = 'User';

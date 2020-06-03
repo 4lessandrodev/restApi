@@ -116,5 +116,17 @@ module.exports = {
       res.status(501).json(error);
     }
   },
+
+  login: async (req, res, next) => {
+    try {
+      let credential = await Auth.decodeCredentials(req, res, next);
+      let user = new User(credential.email, credential.password);
+
+      
+
+    } catch (error) {
+      res.status(401).json({ error });
+    }
+  }
   
 };

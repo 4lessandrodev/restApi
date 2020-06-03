@@ -1,14 +1,15 @@
 const jwt = require('jsonwebtoken');
+const cryptoJs = require('crypto-js');
 require('dotenv').config();
 
 module.exports = {
   //CRIAR UM NOVO TOKEN
   //--------------------------------------------------------
   signToken: (user) => {
-    let token = jwt.sign(user, process.env.SECRET_KEY, { expiresIn: '1h' });
+    let token = jwt.sign(user, process.env.SECRET_KEY, { expiresIn: '7 days' });
     return token;
   },
-
+  
   //VALIDAR TOKEN
   //--------------------------------------------------------
   verifyToken: (req, res, next) => {
@@ -33,6 +34,18 @@ module.exports = {
       }
     } catch (error) {
       res.status(401).json({ error });
+    }
+  },
+
+  //Decodificar credenciais de login
+  decodeCredentials: (req, res, next) => {
+    try {
+      let credential = req.headers.credential;
+      var bytes = cryptoJs.AES.decrypt(credential, 'credential');
+      var decoded = JSON.parse(bytes.toString(cryptoJs.enc.Utf8));
+      return decoded; 
+    } catch (error) {
+      res.status(401).json({ error:{message:'Credencial inválida'} });
     }
   }
   

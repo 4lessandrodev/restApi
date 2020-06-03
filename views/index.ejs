@@ -1,11 +1,36 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+<head>
+  <title>Credential</title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/aes.min.js"></script>
+  <style>
+    .size{
+      min-width: 50%;
+      margin: 1vh 0;
+    }
+  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <h1>Create credentials to login</h1>
+  <p>Put this credential in headers</p>
+  <div>
+    <label for="credential">Email</label><br>
+    <input type="text" name="name" id="name" class="size">
+  </div>
+  
+  <div>
+    <label for="credential">Password</label><br>
+    <input type="text" name="password" id="password" class="size">
+  </div>
+  
+  <div>
+    <label for="credential">Your credential is:</label><br>
+    <input type="text" name="credential" id="credential" class="size">
+  </div>
+  <input type="button" value="Generate" id="btn-generate" class="size">
+  <script src="/javascripts/createCredentials.js"></script>
+</body>
 </html>
