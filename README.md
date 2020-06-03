@@ -247,15 +247,6 @@ app.use('/', indexRouter);
 app.use(Auth.verifyToken);
 app.use('/users', usersRouter);
 ```
-#### Para clonar o projeto
-
-1.  ` git clone https://github.com/ALESSANDROLMENEZES/restApi.git`
-2. ` npm install`
-3. configurar seu arquivo .env com as informações de seu ambiente
-4. criar um banco de dados com as seguintes colunas:
-![Banco de dados](http://alessandrodev.com/imagens/api5.jpg "Banco de dados")
-5. `npm start`
-6. Acessar via postman ou similar
 
 ------------
 
@@ -278,3 +269,14 @@ app.use('/users', usersRouter);
 
 ![Credencial no header para login](http://alessandrodev.com/imagens/api6.jpg "Login passando a credencial")
 
+
+#### Para clonar o projeto
+
+1.  ` git clone https://github.com/ALESSANDROLMENEZES/restApi.git`
+2. ` npm install`
+3. configurar seu arquivo .env com as informações de seu ambiente
+4. criar um banco de dados com as seguintes colunas:
+![Banco de dados](http://alessandrodev.com/imagens/api5.jpg "Banco de dados")
+5. `npm start`
+6. Acessar via postman ou similar
+7. As rotas autenticadas requerem um token, faça o cadastro na rota publica e informe o token no headers
