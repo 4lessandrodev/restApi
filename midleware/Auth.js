@@ -20,10 +20,10 @@ module.exports = {
       } else {
         //substring para tirar o "Bearer "
         let token = req.headers.authorization.substring(7); 
-        let user = jwt.verify(token, process.env.SECRET_KEY);
-        if (user.id != undefined) {
+        let decode = jwt.verify(token, process.env.SECRET_KEY);
+        if (decode.data.id != undefined) {
           //Verificar se o token expirou
-          if (NOW > user.exp * 1000) {
+          if (NOW > decode.exp * 1000) {
             res.status(401).json({ error: { message: 'Token expirado' } });
           } else {
             next();
@@ -40,12 +40,15 @@ module.exports = {
   //Decodificar credenciais de login
   decodeCredentials: (req, res, next) => {
     try {
+      if (!req.headers.credential) {
+        return false;
+      }
       let credential = req.headers.credential;
       var bytes = cryptoJs.AES.decrypt(credential, 'credential');
       var decoded = JSON.parse(bytes.toString(cryptoJs.enc.Utf8));
       return decoded; 
     } catch (error) {
-      res.status(401).json({ error:{message:'Credencial inválida'} });
+      return false;
     }
   }
   

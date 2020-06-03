@@ -42,5 +42,17 @@ class userDao extends genericDao{
     });
   }
 
+  static findToLogin(model) {
+    return new Promise((resolve, reject) => {
+      db.query(`SELECT * FROM ${model.tableName} WHERE Email = ?`, [model[model.modelName].Email], (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      });
+    });
+  }
+
 }
 module.exports = userDao;

@@ -1,6 +1,7 @@
 const userDao = require('./../Dao/userDao');
 const User = require('./../models/User');
 const Auth = require('../midleware/Auth');
+const bcrypt = require('bcrypt');
 require('dotenv').config();
 
 module.exports = {
@@ -17,7 +18,7 @@ module.exports = {
       } else {
         users = await userDao.listUsers(user);
       }
-      
+
       res.status(200).json(users);
       
     } catch (error) {
@@ -58,11 +59,11 @@ module.exports = {
       user.password = req.body.password;
       
       let result = await userDao.save(user);
-      let savedUser = { id: result.insertId, Name: user.name, Email: user.email };
+      let data = { id: result.insertId, Name: user.name, Email: user.email };
       
-      let token = await Auth.signToken(savedUser);
+      let token = await Auth.signToken({ data });
       
-      res.status(200).json({ savedUser, token });
+      res.status(200).json({ data, token });
       
     } catch (error) {
       res.status(501).json(error);
@@ -117,13 +118,34 @@ module.exports = {
     }
   },
 
+  //REALIZAR LOGIN
+  //-----------------------------------
   login: async (req, res, next) => {
     try {
-      let credential = await Auth.decodeCredentials(req, res, next);
-      let user = new User(credential.email, credential.password);
-
       
+      let credential = await Auth.decodeCredentials(req, res, next);
+      if (!credential) {
+        res.status(401).json({ error: { message: 'Credencial inválida' } });
+      }
 
+      let user = new User(credential.email, credential.password);
+      let foundUser = await userDao.findToLogin(user);
+      //Verificar se foi encontrado um usuário
+      if (foundUser[0] == '' && foundUser[0] == null) {
+        res.status(401).json({ error:{message:'Email ou Senha inválido'} });
+      } else if (foundUser[0].Password != undefined) {
+        let matchPass = bcrypt.compareSync(user.password, foundUser[0].Password);
+        if (!matchPass) {
+          res.status(401).json({ error: { message: 'Email ou Senha inválido' } });
+        } else {
+          let data = foundUser[0];
+          data.Password = undefined;
+          let token = await Auth.signToken({ data });
+          res.status(200).json({ data, token });
+        }
+      } else {
+        res.status(401).json({ error: { message: 'Email ou Senha inválido' } });
+      }
     } catch (error) {
       res.status(401).json({ error });
     }

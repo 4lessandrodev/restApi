@@ -45,10 +45,10 @@ http://localhost:3000/users/user/Aline
       } else {
         //substring para tirar o "Bearer "
         let token = req.headers.authorization.substring(7); 
-        let user = jwt.verify(token, process.env.SECRET_KEY);
-        if (user.id != undefined) {
+        let decode = jwt.verify(token, process.env.SECRET_KEY);
+        if (decode.data.id != undefined) {
           //Verificar se o token expirou
-          if (NOW > user.exp * 1000) {
+          if (NOW > decode.exp * 1000) {
             res.status(401).json({ error: { message: 'Token expirado' } });
           } else {
             next();
@@ -60,7 +60,7 @@ http://localhost:3000/users/user/Aline
     } catch (error) {
       res.status(401).json({ error });
     }
-  }
+  },
 ```
 
 ##### Middleware utilizado em app.js
@@ -97,3 +97,6 @@ app.use('/users', usersRouter);
 
 ![Token não informado](http://alessandrodev.com/imagens/api4.jpg "Token não informado")
 
+------------
+
+![Credencial no header para login](http://alessandrodev.com/imagens/api6.jpg "Login passando a credencial")
